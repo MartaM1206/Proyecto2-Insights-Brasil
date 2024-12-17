@@ -24,4 +24,23 @@ def reporte(df):
     df_reporte["valores_nulos"] = df.isnull().sum()
     df_reporte["porcentaje_nulos"] = round(((df.isnull().sum())/df.shape[0])*100,2)
     df_reporte["tipo_dato"]=df.dtypes
+    df_reporte = df_reporte.reset_index(drop=False)
     return df_reporte
+
+
+def reemplazar(df, columnas, viejo, nuevo):
+    """Reemplaza un valor en un string por uno nuevo para una lista de columnas de un dataframe
+
+    Args:
+        df (dataframe): dataframe al que pertenecen las columnas que queremos cambiar
+        columnas (list): lista de columnas del dataframe en las que queramos aplicar el cambio
+        viejo (str): patrón que queremos sustituir
+        nuevo (str): patrón nuevo que queremos que aparezca
+
+    
+    Returns:
+        Dataframe con los reemplazos hechos
+    """
+    for columna in columnas:
+        df[columna] = df[columna].str.replace(viejo, nuevo)
+    return df
